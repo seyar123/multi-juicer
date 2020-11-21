@@ -1,4 +1,4 @@
-FROM golang:1.13-alpine AS builder
+FROM golang:1.15-alpine AS builder
 RUN apk add git
 WORKDIR /src
 COPY go.mod go.sum ./
@@ -6,12 +6,12 @@ COPY go.mod go.sum ./
 # and so that source changes don't invalidate our downloaded layer
 RUN go mod download
 COPY main.go main.go
+COPY internal/ internal/
 ENV CGO_ENABLED 0
 RUN go build
 RUN chmod +x progress-watchdog
 
-FROM alpine
-RUN addgroup --system --gid 1001 app && adduser app --system --uid 1001 --ingroup app
-COPY --from=builder --chown=app:app /src/progress-watchdog /home/app/progress-watchdog
-USER 1001
-CMD /home/app/progress-watchdog
+FROM gcr.io/distroless/static:nonroot
+COPY --from=builder --chown=nonroot:nonroot /src/progress-watchdog /progress-watchdog
+ENV GIN_MODE=release
+CMD ["/progress-watchdog"]

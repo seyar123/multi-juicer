@@ -69,6 +69,10 @@ const createDeploymentForTeam = async ({ team, passcodeHash }) => {
                   name: 'CTF_KEY',
                   value: get('juiceShop.ctfKey'),
                 },
+                {
+                  name: 'SOLUTIONS_WEBHOOK',
+                  value: `http://progress-watchdog/team/${team}/webhook`
+                }
               ],
               ports: [
                 {
