@@ -7,6 +7,7 @@ import translations from './translations';
 import { JoinPage } from './pages/JoinPage';
 import { JoiningPage } from './pages/JoiningPage';
 import { JoinedPage } from './pages/JoinedPage';
+import { ScoreBoard } from './pages/ScoreBoard';
 
 import { Layout } from './Layout';
 import { Spinner } from './Spinner';
@@ -53,6 +54,7 @@ function App() {
                 <Route path="/admin" component={AdminPage} />
                 <Route path="/teams/:team/joining/" component={JoiningPage} />
                 <Route path="/teams/:team/joined/" component={JoinedPage} />
+                <Route path="/score-board/" component={ScoreBoard} />
               </Switch>
             </Suspense>
           </Layout>
