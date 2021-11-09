@@ -1,11 +1,11 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: multi-juicer-loadbalancer
+  name: grafana-loadbalancer
   annotations:
     # availible annotations to configure do loadbalancer: https://github.com/digitalocean/digitalocean-cloud-controller-manager/blob/master/docs/controllers/services/annotations.md
     service.beta.kubernetes.io/do-loadbalancer-protocol: 'http2'
-    service.beta.kubernetes.io/do-loadbalancer-certificate-id: #'b0d0a68b-25e9-4881-8be9-d4cf8fc6cc4d'
+    service.beta.kubernetes.io/do-loadbalancer-certificate-id: '341afe382cb6df8dab8cba7ab204fcedf80c06cf'
     service.beta.kubernetes.io/do-loadbalancer-redirect-http-to-https: 'true'
     service.beta.kubernetes.io/do-loadbalancer-algorithm: 'round_robin'
     service.beta.kubernetes.io/do-loadbalancer-healthcheck-protocol: 'http'
@@ -13,10 +13,9 @@ metadata:
 spec:
   type: LoadBalancer
   selector:
-    app.kubernetes.io/instance: multi-juicer
-    app.kubernetes.io/name: multi-juicer
+    app.kubernetes.io/name: grafana
   ports:
     - name: http
       protocol: TCP
       port: 443
-      targetPort: 3000
+      targetPort: 80
